@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_interview/business_logic/cubit/quiz_cubit.dart';
 import 'package:flutter_interview/constants/constants.dart';
 import 'package:flutter_interview/data/models/quiz_model.dart';
-import 'package:flutter_interview/data/repository/quiz_repository.dart';
+import 'package:flutter_interview/logic/cubit/quiz_cubit.dart';
 
 class QuestionCard extends StatelessWidget {
   final QuizModel quizModel;
@@ -16,42 +15,45 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        children: [
-          Text(
-            "${quizModel.question}".isEmpty
-                ? "Please Wait..."
-                : "${quizModel.question}",
-            overflow: TextOverflow.ellipsis,
-            maxLines: 4,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(color: MyColors.kBlackColor),
+    return BlocConsumer<QuizCubit, QuizState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.all(kDefaultPadding),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(25),
           ),
-          SizedBox(
-            height: kDefaultPadding / 2,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  "${quizModel.question}".isEmpty
+                      ? "Please Wait..."
+                      : "${quizModel.question}",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: MyColors.kBlackColor),
+                ),
+           
+                ...List.generate(quizModel.options!.length, (index) {
+                  return Options(
+                    text: quizModel.options![index],
+                    index: index,
+                    press: () {
+                      QuizCubit.get(context).checkAns(quizModel, index);
+                    },
+                    // quizModel: quizModel,
+                  );
+                }),
+              ],
+            ),
           ),
-          ...List.generate(quizModel.options!.length, (index) {
-            return Options(
-              text: quizModel.options![index],
-              index: index,
-              press: () {
-                QuizCubit.get(context).checkAns(quizModel, index);
-                print(quizModel.toString());
-                print(index);
-              },
-              // quizModel: quizModel,
-            );
-          }),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -104,7 +106,7 @@ class Options extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${index + 1} $text",
+                  "${index + 1}. $text",
                   style: TextStyle(color: getTheRightColor(), fontSize: 16),
                 ),
                 Container(
@@ -119,10 +121,12 @@ class Options extends StatelessWidget {
                       color: getTheRightColor(),
                     ),
                   ),
-                  child: getTheRightColor() == MyColors.kGreyColor ? null : Icon(
-                    getTheRightIcon(),
-                    size: 16,
-                  ),
+                  child: getTheRightColor() == MyColors.kGreyColor
+                      ? null
+                      : Icon(
+                          getTheRightIcon(),
+                          size: 16,
+                        ),
                 ),
               ],
             ),

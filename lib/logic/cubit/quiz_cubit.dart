@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -24,6 +25,13 @@ class QuizCubit extends Cubit<QuizState> {
     return quizzes;
   }
 
+  void onInit() {
+    _pageController = PageController();
+  }
+
+  PageController _pageController = PageController();
+  PageController get pageController => this._pageController;
+
   bool _isAnswered = false;
   bool get isAnswered => this._isAnswered;
 
@@ -33,18 +41,37 @@ class QuizCubit extends Cubit<QuizState> {
   int? _selectedAnswer;
   int get selectedAnswer => this._selectedAnswer!;
 
-  int _questionNumber = 1;
-  int get questionNumber => this._questionNumber;
-
   int _numOfCorrectAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
+
+  int? questionNumber = 1;
 
   void checkAns(QuizModel quizModel, int selectedIndex) {
     _isAnswered = true;
     _correctAnswer = quizModel.answerIndex!;
     _selectedAnswer = selectedIndex;
+    questionNumber = int.tryParse(quizModel
+        .questionId!); //because id in the database is a number with String data type
+    print("question number is $questionNumber");
 
     if (_correctAnswer == _selectedAnswer) _numOfCorrectAns++;
-    emit(NumOfCorrectAnsCalculated());
+
+    Future.delayed(Duration(seconds: 2), () {
+      return nextQuestion();
+    });
+  }
+
+  void nextQuestion() {
+    if ((questionNumber!) != quizzes.length) {
+      _isAnswered = false;
+      _pageController.nextPage(
+        duration: Duration(microseconds: 250),
+        curve: Curves.ease,
+      );
+    }
+  }
+
+  void updateTheQuestionNumber(int index) {
+    questionNumber = index + 1;
   }
 }

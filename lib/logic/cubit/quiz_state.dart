@@ -9,7 +9,7 @@ class QuizzesLoaded extends QuizState {
   final List<QuizModel> quizzes;
 
   QuizzesLoaded(this.quizzes);
-
 }
 
-class NumOfCorrectAnsCalculated extends QuizState {}
+
+
