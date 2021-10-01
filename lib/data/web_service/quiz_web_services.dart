@@ -3,28 +3,31 @@ import 'package:flutter_interview/constants/constants.dart';
 import 'package:flutter_interview/data/models/quiz_model.dart';
 
 class QuizWebServices {
-  late Dio dio;
+  Dio? dioClient;
 
   QuizWebServices() {
-    BaseOptions options = BaseOptions(
-      baseUrl: baseUrl,
-      receiveDataWhenStatusError: true,
-      connectTimeout: 20 * 1000, //60 seconds
-      receiveTimeout: 20 * 1000,
-    );
+    if (dioClient == null) {
+      BaseOptions options = BaseOptions(
+        baseUrl: baseUrl,
+        receiveDataWhenStatusError: true,
+        connectTimeout: 20 * 1000, //60 seconds
+        receiveTimeout: 20 * 1000,
+      );
 
-    dio = Dio(options);
+      dioClient = Dio(options);
+    }
   }
 
   Future<List<dynamic>> getAllquizzes() async {
     try {
-      Response response = await dio.get(endPoint);
+      Response response = await dioClient!.get(endPoint);
       // print(response.data.toString());
       return response.data;
-    } catch (e) {
-      print(e.toString());
-      return [];
+    } on DioError catch (ex) {
+      if (ex.type == DioErrorType.connectTimeout) {
+        throw Exception("Connetion Timeout Exception");
+      }
+      throw Exception(ex.message);
     }
   }
-
 }

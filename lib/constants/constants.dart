@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-final baseUrl = 'http://localhost:1337/';
+final baseUrl = 'http://localhost:1337/'; //10.0.2.2 for android em
 final endPoint = 'Models';
-const quizScreen = '/';
-const welcomeScreen = '/welcome_screen';
+const quizScreen = '/quiz_screen';
+const welcomeScreen = '/';
+const scoreScreen = '/score_screen';
 
 
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_interview/constants/constants.dart';
 
 Widget myBackgroundImage() {
   return Image.asset(

@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_interview/constants/constants.dart';
+import 'package:flutter_interview/logic/navigation_service/navigation_service.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 
 import 'package:flutter_interview/data/models/quiz_model.dart';
@@ -11,6 +14,7 @@ part 'quiz_state.dart';
 class QuizCubit extends Cubit<QuizState> {
   static QuizCubit get(context) => BlocProvider.of(context);
   final QuizRepository quizRepository;
+  final NavigationService _navigationService = locator<NavigationService>();
 
   List<QuizModel> quizzes = [];
   QuizCubit(
@@ -21,6 +25,10 @@ class QuizCubit extends Cubit<QuizState> {
     quizRepository.getAllquizzes().then((quizzes) {
       emit(QuizzesLoaded(quizzes));
       this.quizzes = quizzes;
+    }, onError: (exception) {
+      if (exception.message != null) {
+        _navigationService.showMyDialog("Oops, Server Lost Connection!");
+      }
     });
     return quizzes;
   }
@@ -52,11 +60,10 @@ class QuizCubit extends Cubit<QuizState> {
     _selectedAnswer = selectedIndex;
     questionNumber = int.tryParse(quizModel
         .questionId!); //because id in the database is a number with String data type
-    print("question number is $questionNumber");
 
     if (_correctAnswer == _selectedAnswer) _numOfCorrectAns++;
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 1), () {
       return nextQuestion();
     });
   }
@@ -68,10 +75,18 @@ class QuizCubit extends Cubit<QuizState> {
         duration: Duration(microseconds: 250),
         curve: Curves.ease,
       );
+    } else {
+      _navigationService.navigateTo(scoreScreen);
     }
   }
 
   void updateTheQuestionNumber(int index) {
     questionNumber = index + 1;
+  }
+
+  void resetQuiz() {
+    _isAnswered = false;
+    questionNumber = 1;
+    _numOfCorrectAns = 0;
   }
 }
