@@ -1,17 +1,15 @@
 # flutter_interview
 
-A new Flutter project.
+A quiz app that has the most common interview questions that will help flutter students to be familiar with such questions.
 
-## Getting Started
+## Properties:
+    1- Bloc(Cubit)for state managememnt.
+    2- used Strapi to build custom Api for my quiz model.
+    3- Dio package for handling the Api.
+    4- Flutter offline to check internet connectivity.
+    
+## :camera: Screenshots
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Flutter-Interview
+<img src="https://user-images.githubusercontent.com/69325037/135898676-36f96274-27f8-4c1f-b055-1a37b00c999d.png" width="270"/>  <img src="https://user-images.githubusercontent.com/69325037/135898691-61f7dbaa-094e-4798-a768-d1a14b632f39.png" width="270"/> <img src="https://user-images.githubusercontent.com/69325037/135898700-3feb5669-4b3f-497a-a88b-3d722cbfc7f2.png" width="270"/> <img src="https://user-images.githubusercontent.com/69325037/135898712-f98e8ad3-be64-42f4-9fad-053d8a90a87d.png" width="270"/> <img src="https://user-images.githubusercontent.com/69325037/135898723-5db10e16-8764-4c88-9f49-d7b2de090393.png" width="270"/>
+<img src="https://user-images.githubusercontent.com/69325037/135898737-8f018023-62d0-4b22-9130-b375214abe59.png" width="270"/>
