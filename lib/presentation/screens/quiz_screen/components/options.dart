@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_interview/constants/constants.dart';
@@ -53,7 +52,13 @@ class Options extends StatelessWidget {
               children: [
                 Text(
                   "${index + 1}. $text",
-                  style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                  style: TextStyle(
+                    color: getTheRightColor(),
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
                 Container(
                   height: 26,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_interview/constants/constants.dart';
 import 'package:flutter_interview/logic/navigation_service/navigation_service.dart';
-import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 
 import 'package:flutter_interview/data/models/quiz_model.dart';
@@ -40,6 +39,7 @@ class QuizCubit extends Cubit<QuizState> {
   PageController _pageController = PageController();
   PageController get pageController => this._pageController;
 
+// getting all necessary logic for checking answers and calculating score.
   bool _isAnswered = false;
   bool get isAnswered => this._isAnswered;
 
@@ -72,7 +72,7 @@ class QuizCubit extends Cubit<QuizState> {
     if ((questionNumber!) != quizzes.length) {
       _isAnswered = false;
       _pageController.nextPage(
-        duration: Duration(microseconds: 250),
+        duration: Duration(microseconds: 150),
         curve: Curves.ease,
       );
     } else {
@@ -88,5 +88,14 @@ class QuizCubit extends Cubit<QuizState> {
     _isAnswered = false;
     questionNumber = 1;
     _numOfCorrectAns = 0;
+  }
+
+  void goToPreviousQuestion() {
+    _isAnswered = true;
+      _pageController.previousPage(
+        duration: Duration(microseconds: 250),
+        curve: Curves.ease,
+      );
+    
   }
 }

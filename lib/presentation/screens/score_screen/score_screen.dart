@@ -10,7 +10,7 @@ class ScoreScreen extends StatelessWidget {
     return BlocConsumer<QuizCubit, QuizState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = QuizCubit.get(context);
+        var cubit = QuizCubit.get(context); //instance of cubit
         return Scaffold(
           body: Stack(
             fit: StackFit.expand,
@@ -36,28 +36,19 @@ class ScoreScreen extends StatelessWidget {
                         .headline4!
                         .copyWith(color: MyColors.kSecondaryColor),
                   ),
-                  SizedBox(height: 30,),
-                 
-                   MaterialButton(
+                  SizedBox(
+                    height: 30,
+                  ),
+                  myMaterialButton(
                     onPressed: () {
-cubit.resetQuiz();
-                      Navigator.of(context).pushNamed(quizScreen);                    },
-                    child: Container(
-                      width: 200,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(kDefaultPadding * 0.75), // 15
-                      decoration: BoxDecoration(
-                        gradient: MyColors.kPrimaryGradient,
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                      child: Text(
-                      "Try Again",
-                        style: Theme.of(context)
-                            .textTheme
-                            .button!
-                            .copyWith(color: Colors.black),
-                      ),
-                    ),
+                      cubit.resetQuiz();
+                      Navigator.of(context).pushNamed(quizScreen);
+                    },
+                    text: "Try Again!",
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .button!
+                        .copyWith(color: Colors.black),
                   ),
                   Spacer(
                     flex: 3,

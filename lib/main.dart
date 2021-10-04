@@ -10,7 +10,7 @@ import 'logic/navigation_service/navigation_service.dart';
 
 void main() {
   WidgetsFlutterBinding
-      .ensureInitialized(); //make sure initializing everything before running the app
+      .ensureInitialized(); //ensure initializing everything before running the app
   Bloc.observer = MyBlocObserver();
   NavigationService().setupLocator(); // to navigate without context inside cubit
   runApp(MyApp(appRouter: AppRouter()));
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         ..onInit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Patua One'),
         onGenerateRoute: appRouter.generateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
       ),

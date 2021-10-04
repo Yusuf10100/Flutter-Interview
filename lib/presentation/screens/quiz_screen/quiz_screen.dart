@@ -18,7 +18,7 @@ class QuizScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = QuizCubit.get(context);
         cubit.getAllQuizzes();
-        cubit.onInit();
+        cubit.onInit(); // for page controller
         if (state is QuizzesLoaded) {
           allQuizzes = (state).quizzes;
           return Scaffold(
@@ -26,18 +26,33 @@ class QuizScreen extends StatelessWidget {
               children: [
                 myBackgroundImage(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                   child: Align(
-                    child: MaterialButton(
-                      onPressed: () {
-                        cubit.nextQuestion();
-                         if (cubit.questionNumber == cubit.quizzes.length)
-                        Navigator.of(context).pushNamed(scoreScreen);
-                      },
-                      child: Text(
-                        "Skip",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              if (cubit.questionNumber! > 1) {
+                                cubit.goToPreviousQuestion();
+                              } else {
+                                Navigator.of(context).pushNamed(welcomeScreen);
+                              }
+                            },
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            )),
+                        Spacer(),
+                        MaterialButton(
+                          onPressed: () {
+                            cubit.nextQuestion();
+                          },
+                          child: Text(
+                            "Skip",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                     alignment: Alignment.topRight,
                   ),

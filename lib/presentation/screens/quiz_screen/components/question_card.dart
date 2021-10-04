@@ -22,7 +22,7 @@ class QuestionCard extends StatelessWidget {
       builder: (context, state) {
         var cubit = QuizCubit.get(context);
         return Container(
-          padding: EdgeInsets.all(kDefaultPadding),
+          padding: EdgeInsets.all(kDefaultPadding/2),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(25),
@@ -35,7 +35,7 @@ class QuestionCard extends StatelessWidget {
                       ? "Please Wait..."
                       : "${quizModel.question}",
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
+                  maxLines: 10,
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
@@ -47,11 +47,11 @@ class QuestionCard extends StatelessWidget {
                     index: index,
                     press: () {
                       cubit.checkAns(quizModel, index);
-                   
                     },
                     // quizModel: quizModel,
                   );
                 }),
+                
               ],
             ),
           ),

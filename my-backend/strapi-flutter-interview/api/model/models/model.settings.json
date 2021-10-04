@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "models",
+  "info": {
+    "name": "model",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question_id": {
+      "type": "uid"
+    },
+    "question": {
+      "type": "text"
+    },
+    "options": {
+      "type": "json"
+    },
+    "answer_index": {
+      "type": "integer"
+    }
+  }
+}

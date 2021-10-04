@@ -13,7 +13,6 @@ import '../cubit/quiz_cubit.dart';
 class AppRouter {
   late QuizRepository quizRepository;
   late QuizCubit quizCubit;
-  late QuizModel quizModel;
   AppRouter() {
     quizRepository = QuizRepository(QuizWebServices());
     quizCubit = QuizCubit(
