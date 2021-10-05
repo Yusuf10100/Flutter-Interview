@@ -1,6 +1,6 @@
 # flutter_interview
 
-A quiz app that has the most common interview questions that will help flutter students to be familiar with such questions.
+A voluntary app that has the most common interview questions that will help flutter students to be familiar with such questions.
 
 ## Properties:
     1- Bloc(Cubit)for state managememnt.
